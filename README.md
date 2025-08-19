@@ -11,7 +11,7 @@ All projects are written in **C**, follow a structured and modular coding style,
 - Professional coding style with clear modular separation:
     - **System initialization** (clock, startup, etc.)
     - **Board Support Package (BSP)** for LEDs, buttons, and peripherals
-    - **Drivers** and **utilities** (e.g., SysTick-based delays)
+    - **Drivers** and **utilities** (e.g., SysTick-based and timer-based delays)
 - Each project includes:
     - **Source** (`Src/`) and **header** (`Inc/`) files
     - **Startup code** for STM32F407VGT6 (Discovery board)
@@ -22,21 +22,14 @@ All projects are written in **C**, follow a structured and modular coding style,
 ``` bash
 STM32F4-CMSIS-Projects/
 │── 01-LED_Blinky_SysTick/
-│   ├── Core/
-│   │   ├── Inc/        # Header files
-│   │   ├── Src/        # Source files
-│   │   └── Startup/    # Startup assembly
-│   ├── Drivers/
-│   │   ├── BSP/        # BSP files
-│   │   └── CMSIS       # CMSIS files
-│   ├── Doxyfile        # Doxygen config
-│   └── README.md       # Project-specific details
+│   └── ...             # See the project README.md
 │
-│── ProjectName2/
-│   ├── ...
+│── 02-LED_Blinky_TimerDelay/
+│   └── ...             # See the project README.md
 │
 │── .gitignore
-└── LICENSE.txt
+│── LICENSE.txt         # MIT License
+└── README.md
 ```
 
 ---
