@@ -1,0 +1,66 @@
+# STM32CubeIDE / Eclipse files
+.settings/
+.mxproject
+.cproject.user
+*.launch
+
+# IDE metadata
+.metadata/
+.revisions/
+
+# Build output
+Debug/
+Release/
+/Core/Debug/
+/Core/Release/
+
+# Object files
+*.o
+*.ko
+*.obj
+*.d
+
+# Excecutables
+*.elf
+*.axf
+*.bin
+*.hex
+*.map
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Backup / temporary files
+*~
+*.bak
+*.swp
+*.tmp
+*.log
+
+# Doxygen Documentation
+docs/
