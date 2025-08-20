@@ -10,7 +10,7 @@
   * 		- Groups multiple BSP modules into one include.
   * 		- Provides `BSP_Init()` to initialize all supported peripherals at once.
   *
-  * @note	This header should be included instead of including each BSP module indivisually
+  * @note	This header should be included instead of including each BSP module individually
   * 		when you want to initialize and use the full BSP.
   */
 
