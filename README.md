@@ -1,6 +1,6 @@
 # STM32F4 CMSIS Projects
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
 
 This repository contains a collection of **STM32F4 microcontroller projects** developed using the **CMSIS (Cortex Microcontroller Software Interface Standard)** framework.
 All projects are written in **C**, follow a structured and modular coding style, and are documented with **Doxygen** for easy navigation and maintainability.
