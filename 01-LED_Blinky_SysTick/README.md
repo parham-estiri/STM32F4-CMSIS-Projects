@@ -1,6 +1,6 @@
 # STM32F4 CMSIS LED Blinky Using SysTick
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
 
 This project demonstrates LED blinking using the **SysTick timer** for millisecond delay, with a **Board Support Package (BSP)** abstraction for the LEDs and the button on the **STM32F407G-DISC1** board. This is a **bare-metal CMSIS project** (no HAL or LL is used).
 
