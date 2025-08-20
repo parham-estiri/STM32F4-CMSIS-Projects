@@ -29,9 +29,10 @@ extern "C" {
 void SysTick_Init(void);
 
 /**
-  * @brief	Delay execution for a specified number of milliseconds.
-  * @details	This function blocks execution for the specified duration using
-  * 			the SysTick timer.
+  * @brief	Delays execution for a specified number of milliseconds.
+  * @details	Blocks execution for the specified duration using the SysTick timer.
+  *				The CPU executes the __WFI() instruction inside the wait loop,
+  *				entering sleep mode between ticks to reduce power consumption.
   * @param[in] ms	Number of milliseconds to delay.
   * @retval	None
   */

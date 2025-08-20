@@ -47,15 +47,18 @@ uint32_t millis(void)
 
 /**
   * @brief	Delays execution for a specified number of milliseconds.
-  * @details	This function blocks execution for the specified duration using
-  * 			the SysTick timer.
+  * @details	Blocks execution for the specified duration using the SysTick timer.
+  *				The CPU executes the __WFI() instruction inside the wait loop,
+  *				entering sleep mode between ticks to reduce power consumption.
   * @param[in] ms	Number of milliseconds to delay.
   * @retval	None
   */
 void SysTick_delay_ms(uint32_t ms)
 {
 	uint32_t start = msTicks;			/**< Record starting tick count			*/
-	while ((msTicks - start) < ms);		/**< Wait until specified time passes	*/
+	while ((msTicks - start) < ms){		/**< Wait until specified time passes	*/
+		__WFI();		/**< Sleep until next interrpt	*/
+	}
 }
 
 /**
