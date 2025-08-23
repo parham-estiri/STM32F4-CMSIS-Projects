@@ -1,4 +1,4 @@
-# STM32F4 CMSIS LED Blinky Using SysTick
+# STM32F4 CMSIS LED Blinky Using Timer Delay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
 
@@ -20,7 +20,7 @@ This project demonstrates LED blinking using the **Basic timer TIM6** for millis
 ## Project Structure
 
 ```bash
-01-LED_Blinky_SysTick/
+02-LED_Blinky_TimerDelay/
 │── Core/
 │   ├── Inc/           # Header files
 │   │   ├── delay.h                 # TIM6 interface
