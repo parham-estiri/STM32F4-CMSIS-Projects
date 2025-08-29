@@ -11,7 +11,7 @@
   */
 
 #include "system.h"
-#include "bsp.h"
+#include "stm32f407g_disc1.h"
 #include "systick.h"
 
 /**
@@ -19,7 +19,7 @@
   *
   * 		The main function performs the following steps:
   * 		1. Initializes system clock and core peripherals.
-  * 		2. Initializes board support package (LEDs, buttons).
+  * 		2. Initializes board support package (LEDs).
   * 		3. Initializes SysTick for millisecond timing.
   * 		4. Enters an infinite loop where the red LED is toggled every 1000ms.
   *
@@ -29,13 +29,13 @@
 int main(void)
 {
 	System_Init();			/**< Initialize system configuration		*/
-	BSP_Init();				/**< Initialize board support package		*/
+	BSP_LED_Init();			/**< Initialize LEDs on the board			*/
 	SysTick_Init();			/**< Initialize SysTick timer for delays	*/
 
 	/**< Main loop */
 	while (1)
 	{
-		BSP_LED_Toggle(LED_RED);	/**< Toggle the red LED		*/
+		BSP_LED_Toggle(LED_RED);	/**< Toggle the LED			*/
 		SysTick_delay_ms(1000);		/**< 1 second delay			*/
 	}
 }
