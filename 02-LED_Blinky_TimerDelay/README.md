@@ -1,8 +1,8 @@
-# STM32F4 CMSIS LED Blinky Using Timer Delay
+# STM32F4 CMSIS LED Blinky Using SysTick
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE.txt)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-This project demonstrates LED blinking using the **Basic timer TIM6** for millisecond delay, with a **Board Support Package (BSP)** abstraction for the LEDs and the button on the **STM32F407G-DISC1** board. This is a **bare-metal CMSIS project** (no HAL or LL is used).
+This project demonstrates LED blinking using the **Basic timer TIM6** for millisecond delay, with a **Board Support Package (BSP)** abstraction for the LEDs on the **STM32F407G-DISC1** board. This is a **bare-metal CMSIS project** (no HAL or LL is used).
 
 ---
 ## Features
@@ -20,7 +20,7 @@ This project demonstrates LED blinking using the **Basic timer TIM6** for millis
 ## Project Structure
 
 ```bash
-02-LED_Blinky_TimerDelay/
+01-LED_Blinky_SysTick/
 │── Core/
 │   ├── Inc/           # Header files
 │   │   ├── delay.h                 # TIM6 interface
@@ -35,12 +35,8 @@ This project demonstrates LED blinking using the **Basic timer TIM6** for millis
 │       └── startup_stm32f407vgtx.s # Startup assembly file    
 ├── Drivers/
 │   ├── BSP/           # BSP files
-│   │   ├── bsp.c                   # BSP implementation
-│   │   ├── bsp.h                   # BSP interface
-│   │   ├── bsp_button.c            # BSP button functions
-│   │   ├── bsp_button.h            # BSP button interface
-│   │   ├── bsp_led.c               # BSP LED functions
-│   │   └── bsp_led.h               # BSP LED interface
+│   │   ├── stm32f407g_disc1.c      # BSP implementation
+│   │   └── stm32f407g_disc1.h      # BSP interface
 │   └── CMSIS          # CMSIS files
 ├── assets/
 │   └── demo.gif
@@ -56,8 +52,8 @@ This project demonstrates LED blinking using the **Basic timer TIM6** for millis
 1. **System_Init()**
    Configures NVIC, enables SWD debug, and sets system clock to **168MHz**.
 
-2. **BSP_Init()**
-   Initializes LEDs and Button GPIOs.
+2. **BSP_LED_Init()**
+   Initializes LEDs.
 
 3. **Delay_Init()**
    Initializes TIM6 for delay. Provides:
