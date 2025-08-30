@@ -14,7 +14,8 @@ All projects are written in **C**, follow a structured and modular coding style,
     - **Drivers** and **utilities** (e.g., SysTick-based and timer-based delays)
 - Each project includes:
     - **Source** (`Src/`) and **header** (`Inc/`) files
-    - **Startup code** for STM32F407VGT6 (Discovery board)
+    - **Startup code** for STM32F407VGT6 (STM32F407G-DISC1 Discovery board)
+    - **BSP** (`Drivers/BSP`) and **CMSIS** (`Drivers/CMSIS`) files
     - **Doxygen documentation**
 
 ---
@@ -25,6 +26,9 @@ STM32F4-CMSIS-Projects/
 │   └── ...             # See the project README.md
 │
 │── 02-LED_Blinky_TimerDelay/
+│   └── ...             # See the project README.md
+│
+│── 03-Button_EXTI/
 │   └── ...             # See the project README.md
 │
 │── .gitignore
