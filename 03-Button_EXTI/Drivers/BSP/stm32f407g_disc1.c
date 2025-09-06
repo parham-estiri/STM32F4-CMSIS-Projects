@@ -129,7 +129,7 @@ void BSP_LED_Toggle(LED_TypeDef led)
   */
 
 /** @brief	Initialize button GPIO helper function. */
-static inline BSP_Button_GPIO_Init(void);
+static __INLINE BSP_Button_GPIO_Init(void);
 /** @brief	Initialize button EXTI line. */
 void BSP_Button_EXTI_Init(void);
 /** @brief	Initialize button NVIC configuration. */
@@ -183,7 +183,7 @@ uint8_t BSP_Button_Read(void)
   * @param	None
   * @retval	None
   */
-static inline BSP_Button_GPIO_Init(void)
+static __INLINE BSP_Button_GPIO_Init(void)
 {
 	BUTTON_GPIO_PORT->MODER &= ~(3UL << (BUTTON_PIN * 2));		/**< Set the pin as input	*/
 
@@ -269,7 +269,7 @@ static void BSP_Button_DebounceTimer_Init(void)
   *
   * @note	Define your own BSP_Button_Callback() in your application to override this behavior.
   */
-__attribute__((weak)) void BSP_Button_Callback(void)
+__WEAK void BSP_Button_Callback(void)
 {
 	BSP_LED_Toggle(LED_ORANGE);			/**< Toggle orange LED by default	*/
 }
