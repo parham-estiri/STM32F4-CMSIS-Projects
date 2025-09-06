@@ -20,7 +20,7 @@
   * 	  overridden by the user application.
   *
   * @attention
-  * 	This module is designed for CMSIS-level bare-metal projects and does not
+  * 	This module is designed for CMSIS-level bare-metal projects and does NOT
   * 	rely on STM32 HAL drivers.
   */
 
@@ -104,7 +104,7 @@ void BSP_LED_Off(LED_TypeDef led)
 {
 	if (led < LEDn)		/**< Validate LED index	*/
 	{
-		LED_GPIO_PORT->BSRR = (1UL << (LED_PIN[led] + 16U));	/**< Reset bit to turn LED off */
+		LED_GPIO_PORT->BSRR = (1UL << (LED_PIN[led] + 16UL));	/**< Reset bit to turn LED off */
 	}
 }
 
@@ -269,7 +269,7 @@ static void BSP_Button_DebounceTimer_Init(void)
   *
   * @note	Define your own BSP_Button_Callback() in your application to override this behavior.
   */
-__attribute__((weak)) void BSP_Button_Callback(void)
+__WEAK void BSP_Button_Callback(void)
 {
 	BSP_LED_Toggle(LED_ORANGE);			/**< Toggle orange LED by default	*/
 }
