@@ -24,12 +24,12 @@ This project demonstrates LED blinking using the **SysTick timer** for milliseco
 │   ├── Inc/           # Header files
 │   │   ├── system.h                # System initialization (clock, debug, NVIC)
 │   │   ├── system_stm32f4xx.h      # CMSIS Cortex-M4 Device System Header File for STM32F4xx devices
-│   │   └── systick.h               # SysTick timer interface
+│   │   └── systick.h               # SysTick driver interface
 │   ├── Src/           # Source files
 │   │   ├── main.c                  # Application entry point
 │   │   ├── system.c                # System configuration and clock setup
 │   │   ├── system_stm32f4xx.c      # CMSIS Cortex-M4 Device Peripheral Access Layer System Source File
-│   │   └── systick.c               # SysTick implementation
+│   │   └── systick.c               # SysTick driver implementation
 │   └── Startup/
 │       └── startup_stm32f407vgtx.s # Startup assembly file    
 ├── Drivers/
@@ -54,9 +54,9 @@ This project demonstrates LED blinking using the **SysTick timer** for milliseco
 2. **BSP_LED_Init()**
    Initializes LEDs on the STM32F407G-DISC1 board.
 
-3. **SysTick_Init()**
-   Configures SysTick for a **1ms interrupt**. Provides:
-     - `millis()`: elapsed time since startup
+3. **SysTick_Init(1000, SYSTICK_CMSIS)**
+   Configures SysTick for a **1ms interrupt** with CMSIS implementation style (using CMSIS SysTick_Config() function). Also supports user-defined custom impelemntation, if user decides to do so. Provides:
+     - `Systick_GetTick`: elapsed time since startup
      - `SysTick_delay_ms(ms)`: blocking delay
   
 4. **Main loop**
