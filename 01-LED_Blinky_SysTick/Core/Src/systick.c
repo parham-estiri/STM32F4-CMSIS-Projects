@@ -1,82 +1,96 @@
 /**
   * @file	systick.c
   * @author	Parham Estiri
-  * @brief	Implementation of SysTick timer functions for STM32F4 series.
-  *
-  * 		This file provides initialization, millisecond delay, and time tracking functions
-  * 		using the SysTick timer.
+  * @brief	SysTick driver implementation.
   */
 
 #include "systick.h"
 
 /**
-  *	@brief	Millisecond counter incremented by SysTick interrupt.
-  *	@details	This variable keeps track of the number of milliseconds since
-  *				SysTick_Init() was called.
+  *	@brief	Global tick counter in milliseconds
   */
-static volatile uint32_t msTicks = 0;
+static volatile uint32_t systick_ms = 0;
 
 /**
-  * @brief	System core clock frequency.
-  * @details	Defined in system_stm32fxx.c. Used to calculate SysTick reload value.
-  */
-extern uint32_t SystemCoreClock;
-
-/**
-  * @brief	SysTick interrupt handler.
-  * @details	This function is called automatically every 1ms when SysTick
-  * 			interrupt occurs. It increments the millisecond counter.
-  * @param	None
+  * @brief	Initialize SysTick timer
+  * @details	Configures the SysTick timer to generate a 1ms tick interrupt
+  * 			based on the system core clock.
+  * @param[in] ticks_per_second		Number of SysTick interrupt per second
+  * 								Typically, 1000 for 1ms tick
+  * @param[in] impl		Implementation style: CMSIS or Custom
   * @retval	None
+  * @note	This function must be called at the beginning of main() before using SysTick.
   */
-void SysTick_Handler(void)
+void SysTick_Init(uint32_t ticks_per_second, SysTick_Impl_t impl)
 {
-	msTicks++;		/**< Increment millisecond counter	*/
+	systick_ms = 0;			/**< Reset tick counter */
+
+	switch (impl)
+	{
+		case SYSTICK_CMSIS:
+			/* CMSIS function: automatically sets reload, enables counter & interrupt */
+			SysTick_Config(SystemCoreClock / ticks_per_second);
+			break;
+
+		case SYSTICK_CUSTOM:
+			/* Manual register-level configuration */
+			SysTick->LOAD = (uint32_t)((SystemCoreClock / ticks_per_second) - 1UL);	/**< Set reload value */
+			SysTick->VAL  = 0UL;							/**< Reset SysTick current value */
+			SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk		/**< Use processor clock	*/
+						  | SysTick_CTRL_TICKINT_Msk		/**< Enable interrupt		*/
+						  | SysTick_CTRL_ENABLE_Msk;		/**< Enable SysTick counter	*/
+			break;
+
+		default:
+			break;
+	}
 }
 
 /**
-  * @brief	Returns the number of milliseconds since SysTick was initialized.
-  * @details	Useful for non-blocking timing or measuring elapsed time.
-  * @param	None
-  * @retval	Elapsed time in milliseconds.
+  * @brief	Enable SysTick timer and interrupt
   */
-uint32_t millis(void)
+void SysTick_Enable(void)
 {
-	return msTicks;
+	SysTick->CTRL = SysTick_CTRL_TICKINT_Msk		/**< Enable interrupt		*/
+				  | SysTick_CTRL_ENABLE_Msk;		/**< Enable SysTick counter	*/
 }
 
 /**
-  * @brief	Delays execution for a specified number of milliseconds.
-  * @details	Blocks execution for the specified duration using the SysTick timer.
-  *				The CPU executes the __WFI() instruction inside the wait loop,
-  *				entering sleep mode between ticks to reduce power consumption.
+  * @brief	Disable SysTick timer and interrupt
+  */
+void SysTick_Disable(void)
+{
+	SysTick->CTRL &= ~(SysTick_CTRL_TICKINT_Msk		/**< Disable interrupt		*/
+				  | SysTick_CTRL_ENABLE_Msk);		/**< Disable SysTick counter	*/
+}
+
+/**
+  * @brief	Blocking delay in milliseconds
   * @param[in] ms	Number of milliseconds to delay.
   * @retval	None
   */
 void SysTick_delay_ms(uint32_t ms)
 {
-	uint32_t start = msTicks;			/**< Record starting tick count			*/
-	while ((msTicks - start) < ms){		/**< Wait until specified time passes	*/
-		__WFI();		/**< Sleep until next interrpt	*/
+	uint32_t start = systick_ms;		/**< Record starting tick count			*/
+	while ((systick_ms - start) < ms){	/**< Wait until specified time passes	*/
+		__WFI();						/**< Sleep until next interrupt			*/
 	}
 }
 
 /**
-  * @brief	Initializes the SysTick timer.
-  * @details	Configures the SysTick timer to generate a 1ms tick interrupt
-  * 			based on the system core clock.
+  * @brief	Get current tick count in milliseconds
   * @param	None
-  * @retval	None
+  * @retval	Tick count since SysTick initialization.
   */
-void SysTick_Init(void)
+uint32_t SysTick_GetTick(void)
 {
-	SysTick->CTRL = 0;			/**< Disable SysTick during configuration	*/
+	return systick_ms;
+}
 
-	SysTick->LOAD = (SystemCoreClock / 1000) - 1;	/**< Set reload value for 1ms tick: (SystemCoreClock / 1000) - 1	*/
-
-	SysTick->VAL = 0;			/**< Reset SysTick current value	*/
-
-	SysTick->CTRL = SysTick_CTRL_CLKSOURCE_Msk		/**< Use processor clock	*/
-				  | SysTick_CTRL_TICKINT_Msk		/**< Enable interrupt		*/
-				  | SysTick_CTRL_ENABLE_Msk;		/**< Enable SysTick counter	*/
+/**
+  * @brief	SysTick interrupt handler
+  */
+void SysTick_Handler(void)
+{
+	systick_ms++;		/**< Increment millisecond counter	*/
 }

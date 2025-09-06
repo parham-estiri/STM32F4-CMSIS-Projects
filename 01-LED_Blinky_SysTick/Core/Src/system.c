@@ -21,10 +21,10 @@
 #define NVIC_PRIORITYGROUP_4	0x3UL	/**< 4 bits for pre-emption priority, 0 bits for subpriority */
 
 /**************************  PLL Configuration Constants  **************************/
-#define PLL_M		4U				/**< PLL division factor for main PLL input clock	*/
-#define PLL_N		168U			/**< PLL multiplication factor for VCO				*/
-#define PLL_P		2U				/**< PLL division factor for main system clock		*/
-#define PLL_Q		7U				/**< PLL division factor for USB clock				*/
+#define PLL_M		4UL				/**< PLL division factor for main PLL input clock	*/
+#define PLL_N		168UL			/**< PLL multiplication factor for VCO				*/
+#define PLL_P		2UL				/**< PLL division factor for main system clock		*/
+#define PLL_Q		7UL				/**< PLL division factor for USB clock				*/
 
 /**************************  Static Function Prototypes  ***************************/
 static void System_SWD_Init(void);
@@ -93,7 +93,7 @@ static void System_Clock_Config(void)
 			  |  RCC_CFGR_PPRE1_DIV4		/**< APB1 prescaler => /4						*/
 	          |  RCC_CFGR_PPRE2_DIV2;		/**< APB2 prescaler => /2						*/
 
-	RCC->PLLCFGR = 0;						/**< Clear PLL configuration					*/
+	RCC->PLLCFGR = 0UL;						/**< Clear PLL configuration					*/
 	RCC->PLLCFGR |= (PLL_M & 0x3FU)						/**< PLLM = 4						*/
 				 |	((PLL_N & 0x1FFU) << 6)				/**< PLLN = 168						*/
 				 |	(((PLL_P / 2 - 1) & 0x3U) << 16)	/**< PLLP = 2						*/

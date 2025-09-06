@@ -9,12 +9,11 @@
 #ifndef SYSTEM_H_
 #define SYSTEM_H_
 
-#include "stm32f407xx.h"
-#include "system_stm32f4xx.h"
-
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
+
+#include "stm32f4xx.h"
 
 /******************************  Function Prototypes  ******************************/
 
@@ -28,6 +27,6 @@ void System_Init(void);
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
 #endif /* SYSTEM_H_ */

@@ -27,7 +27,7 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
+#endif /* __cplusplus */
 
 #include "stm32f407xx.h"
 #include "assert.h"
@@ -66,7 +66,7 @@ typedef enum {
   */
 #define LEDn					4		/**< Total number of LEDs on board	*/
 
-#define LED_GPIO_PORT			GPIOD	/**< Port conneted to LEDs		*/
+#define LED_GPIO_PORT			GPIOD	/**< Port connected to LEDs		*/
 #define LED_GPIO_CLK_EN()		(RCC->AHB1ENR |= RCC_AHB1ENR_GPIODEN)	/**< Enable port clock	*/
 
 #define LED_GREEN_PIN			12		/**< Pin number for Green LED	*/
@@ -82,7 +82,7 @@ typedef enum {
   */
 #define BUTTONn					1		/**< Total number of user buttons	*/
 
-#define BUTTON_GPIO_PORT		GPIOA	/**< Port conneted to user button	*/
+#define BUTTON_GPIO_PORT		GPIOA	/**< Port connected to user button	*/
 #define BUTTON_GPIO_CLK_EN()	(RCC->AHB1ENR |= RCC_AHB1ENR_GPIOAEN)	/**< Enable port clock	*/
 
 #define BUTTON_PIN				0		/**< Pin number for user button		*/
@@ -147,6 +147,6 @@ uint8_t BSP_Button_Read(void);
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
 #endif /* STM32F407G_DISC1_H_ */

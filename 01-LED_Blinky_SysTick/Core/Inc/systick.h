@@ -1,10 +1,12 @@
 /**
   * @file	systick.h
   * @author	Parham Estiri
-  * @brief	Header file for SysTick timer functions for STM32F4 series.
+  * @brief	SysTick driver interface.
   *
-  * 		This file provides initialization and delay utilities using
-  * 		the SysTick timer on STM32F4 microcontrollers.
+  *			Provides APIs for:
+  *				- SysTick initialization (CMSIS or Custom)
+  *				- Delay in milliseconds
+  *				- Tick counter using SysTick interrupt
   */
 
 #ifndef SYSTICK_H_
@@ -12,42 +14,61 @@
 
 #ifdef __cpluspluc
 extern "C" {
-#endif
+#endif /* __cplusplus */
 
 #include "stm32f4xx.h"
-#include "system_stm32f4xx.h"
-#include <stdint.h>
 
 /**
-  * @brief	Initialize the SysTick timer.
+  * @brief	Enumeration for SysTick implementation method
+  */
+typedef enum {
+	SYSTICK_CMSIS	= 0,	/**< Use CMSIS SysTick_Config() */
+	SYSTICK_CUSTOM	= 1		/**< Use manual configuration	*/
+} SysTick_Impl_t;
+
+/**
+  * @brief	Initialize SysTick timer
   * @details	Configures the SysTick timer to generate a 1ms tick interrupt
   * 			based on the system core clock.
-  * @param	None
+  * @param[in] ticks_per_second		Number of SysTick interrupt per second
+  * 								Typically, 1000 for 1ms tick
+  * @param[in] impl		Implementation style: CMSIS or Custom
   * @retval	None
   * @note	This function must be called at the beginning of main() before using SysTick.
   */
-void SysTick_Init(void);
+void SysTick_Init(uint32_t ticks_per_second, SysTick_Impl_t impl);
 
 /**
-  * @brief	Delays execution for a specified number of milliseconds.
-  * @details	Blocks execution for the specified duration using the SysTick timer.
-  *				The CPU executes the __WFI() instruction inside the wait loop,
-  *				entering sleep mode between ticks to reduce power consumption.
+  * @brief	Enable SysTick timer and interrupt
+  */
+void SysTick_Enable(void);
+
+/**
+  * @brief	Disable SysTick timer and interrupt
+  */
+void SysTick_Disable(void);
+
+/**
+  * @brief	Blocking delay in milliseconds
   * @param[in] ms	Number of milliseconds to delay.
   * @retval	None
   */
-void SysTick_delay_ms(uint32_t ms);
+void SysTick_Delay_ms(uint32_t ms);
 
 /**
-  * @brief	Return the number of milliseconds since SysTick was initialized.
-  * @details	Useful for non-blocking timing or measuring elapsed time.
+  * @brief	Get current tick count in milliseconds
   * @param	None
-  * @retval	Elapsed time in milliseconds.
+  * @retval	Tick count since SysTick initialization.
   */
-uint32_t millis(void);
+uint32_t SysTick_GetTick(void);
+
+/**
+  * @brief	SysTick interrupt handler
+  */
+void SysTick_Handler(void);
 
 #ifdef __cplusplus
 }
-#endif
+#endif /* __cplusplus */
 
 #endif /* SYSTICK_H_ */

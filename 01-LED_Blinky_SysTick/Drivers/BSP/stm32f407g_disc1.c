@@ -104,7 +104,7 @@ void BSP_LED_Off(LED_TypeDef led)
 {
 	if (led < LEDn)		/**< Validate LED index	*/
 	{
-		LED_GPIO_PORT->BSRR = (1UL << (LED_PIN[led] + 16U));	/**< Reset bit to turn LED off */
+		LED_GPIO_PORT->BSRR = (1UL << (LED_PIN[led] + 16UL));	/**< Reset bit to turn LED off */
 	}
 }
 
