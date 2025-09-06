@@ -269,7 +269,7 @@ static void BSP_Button_DebounceTimer_Init(void)
   *
   * @note	Define your own BSP_Button_Callback() in your application to override this behavior.
   */
-__attribute__((weak)) void BSP_Button_Callback(void)
+__WEAK void BSP_Button_Callback(void)
 {
 	BSP_LED_Toggle(LED_ORANGE);			/**< Toggle orange LED by default	*/
 }
